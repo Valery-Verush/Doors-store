@@ -1,1 +1,1 @@
-# Doors-store
+# mentoring-simple-webpack-starter
