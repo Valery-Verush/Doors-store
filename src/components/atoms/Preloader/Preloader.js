@@ -55,7 +55,7 @@ export class Preloader extends Component {
                 `
                 : ""
             }
-            <slot></slot
+            <slot></slot>
         <div>    
     `;
   }

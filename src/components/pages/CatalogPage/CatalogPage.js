@@ -2,7 +2,7 @@ import { Component } from "../../../core";
 
 export class CatalogPage extends Component {
   render() {
-    return `<h1>catalog Page<h1>`;
+    return `<ds-catalog></ds-catalog>`;
   }
 }
 

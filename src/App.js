@@ -5,13 +5,13 @@ import { appRoutes } from "./constants/appRoutes";
 export class App extends core.Component {
   render() {
     return `
-      <div >
+      <div class='bg-light bg-gradient'>
         <ds-router>
           <ds-header></ds-header>
               <main class="container-xl" >
                 <ds-route path="${appRoutes.home}" component="home-page" title="Межкомнатные двери"></ds-route>
                 <ds-route path="${appRoutes.catalog}" component="catalog-page" title="Каталог"></ds-route>
-                <ds-route path="${appRoutes.info}" component="info-page" title="О нас"></ds-route>
+                <ds-route path="${appRoutes.info}" component="info-page" title="Оплата и доставка"></ds-route>
                 <ds-route path="${appRoutes.basket}" component="basket-page" title="Корзина"></ds-route>
                 <ds-route path="${appRoutes.admin}" component="admin-page" title="Admin Page"></ds-route>
                 <ds-route path="${appRoutes.errorPage}" component="error-page" title="Not Found Page"></ds-route>

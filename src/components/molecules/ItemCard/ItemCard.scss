@@ -1,0 +1,21 @@
+.card {
+  height: 560px;
+}
+.card-img-top {
+  position: relative;
+  height: 300px;
+  width: auto;
+}
+
+.image-door {
+  height: 300px;
+  width: auto;
+}
+
+.card-img-top:hover {
+  zoom: 0.95;
+}
+
+path:hover {
+  fill: #000;
+}

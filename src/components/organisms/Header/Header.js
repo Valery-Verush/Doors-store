@@ -5,10 +5,10 @@ import "./header.scss";
 export class Header extends core.Component {
   render() {
     return `
-  <header>
-    <nav class="navbar navbar-expand-lg bg-warning bg-gradient shadow-sm sticky-top mb-4">
+  <header class="sticky-top ">
+    <nav class="navbar navbar-expand-lg bg-warning bg-gradient shadow-sm  mb-1">
       <div class="container-xl">
-        <ul class="navbar-nav flex-row ">
+        <ul class="navbar-nav nav flex-row ">
         <li class="nav-item col-lg-auto">
           <ds-link classlink="" stylelink="text-decoration: none"  to="${appRoutes.home}">
               <img src="../../../assets/images/icons/logo/room-door-svgrepo-com.svg" alt="D" width="60" height="60"> 
@@ -31,7 +31,7 @@ export class Header extends core.Component {
           <li class="nav-item col-lg-auto">
             <ds-link classlink="" stylelink="text-decoration: none" to="${appRoutes.info}">
               <span class="nav-link text-light  fs-5 mt-2 ms-2">
-                О нас
+                Оплата и доставка
               </span>
             </ds-link>
           </li>
@@ -43,7 +43,7 @@ export class Header extends core.Component {
           <li class="nav-item col-lg-auto">
               <ds-link classlink="" stylelink="text-decoration: none" to="${appRoutes.basket}">
                   <span >
-                    <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" alt="D" width="40" height="50"> 
+                    <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card' alt="D" width="40" height="50"> 
                   </span>
               </ds-link>
           </li> 

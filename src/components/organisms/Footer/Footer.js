@@ -5,10 +5,10 @@ import "./footer.scss";
 export class Footer extends Component {
   render() {
     return `
-    <footer class="bd-footer py-4 py-md-5 mt-5 bg-light">
+    <footer class="bd-footer py-4 py-md-5 mt-5 bg-white bg-gradient shadow-sm">
     <div class="container py-4 py-md-5 px-4 px-md-3">
       <div class="row">
-        <div class="col-lg-3 mb-3">
+        <div class="col-lg-3 mb-3 d-flex align-items-center">
           <a class="d-inline-flex align-items-center mb-2 link-dark text-decoration-none footer-brand" href="/" aria-label="Bootstrap">
           <img src="../../../assets/images/icons/logo/room-door-svgrepo-com.svg" alt="D" width="60" height="60">            
           <span class="fs-5 ms-2">Межкомнатные двери</span>

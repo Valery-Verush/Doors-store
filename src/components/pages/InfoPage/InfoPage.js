@@ -5,31 +5,41 @@ export class InfoPage extends Component {
   componentDidMount() {}
   render() {
     return `
-      <h1>Info Page<h1>
-      <div class="row">
-        <div class="col-12 col-xl-6 mx-auto">
-          <div class=" fs-3">
-            <h5 class=" fs-2">Оплата и доставка</h5>
+      <div class="container bg-white shadow-sm p-3 ">
+        <div class="   align-items-center mb-md-5">
+          <div class=" text-center fs-3">
+          <img src="../../../assets/images/icons/delivery-truck-svgrepo-com.svg " width="300" alt="D">
+            <h5 class=" fs-1">Оплата и доставка</h5>
             <ul class="">
-              <li class="mb-2 mt-2">
-                Доставка по Гомельской области 50 копеек км
+              <li class="mb-2 mt-2 fw-light">
+                Доставка по Гомельской области 50 копеек км.
               </li>
-              <li class="mb-2 mt-2">
+              <li class="mb-2 mt-2 fw-light">
                 Оплату можно производить наличным и безналичным расчётом.
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-12 col-xl-6">
-          <img src="../../../assets/images/zamer6-1200x900.jpg" alt="D">
-        </div>
+        <div class="  align-items-center m-md-2">
+          <div class=" text-center fs-3">
+          <img src="../../../assets/images/icons/24-hours-svgrepo-com.svg" alt="D" width="300">
+            <h5 class=" fs-1">Один день</h5>
+            <ul class="">
+              <li class="mb-2 mt-2 fw-light">
+              Установка двери нашими специалистами
+              </li>
+              
+            </ul>
+          </div>
+
+
 
         </div>
-      <div class="row justify-content-between pt-5 pb-lg-5">
+      <div class="row justify-content-xl-between pt-5 pb-lg-5">
       <div class="col-xl-4 fs-2 fw-bolder">
         Наш адрес:
       </div>
-      <div class="col-xl-5 fs-3 fst-italic text-end">
+      <div class="col-xl-5 fs-3 fw-lighter text-xl-end">
       г. Гомель, Улица Каменщикова 3<br> (2-я галерея 53 место)<br>
       Dvery@tut.by
       </div>
