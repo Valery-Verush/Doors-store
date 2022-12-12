@@ -1,5 +1,5 @@
-import { Database } from "../database/Database";
-class TodoList {
+import { Database } from "./Database";
+class AddItemService {
   constructor() {
     this.database = Database.getInstance();
   }
@@ -20,4 +20,4 @@ class TodoList {
   }
 }
 
-export const todoList = new TodoList();
+export const addItemService = new AddItemService();

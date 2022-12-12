@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { cloudService } from "./Cloud";
 import {
   getFirestore,
   collection,
@@ -10,18 +10,7 @@ import {
 } from "firebase/firestore";
 export class Database {
   constructor() {
-    this.config = {
-      apiKey: process.env.API_KEY,
-      authDomain: "doors-shop-9c2ec.firebaseapp.com",
-      projectId: "doors-shop-9c2ec",
-      storageBucket: "doors-shop-9c2ec.appspot.com",
-      messagingSenderId: "605600454092",
-      appId: process.env.APP_ID,
-      measurementId: "G-CLX8EVGGZ4",
-    };
-
-    this.app = initializeApp(this.config);
-    this._database = getFirestore(app);
+    this._database = getFirestore(cloudService.app);
   }
 
   create(collectionKey, body) {

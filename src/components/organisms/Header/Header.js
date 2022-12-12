@@ -35,6 +35,13 @@ export class Header extends core.Component {
               </span>
             </ds-link>
           </li>
+          <li class="nav-item col-lg-auto">
+            <ds-link classlink="" stylelink="text-decoration: none" to="${appRoutes.addItem}">
+              <span class="nav-link text-light  fs-5 mt-2 ms-2">
+                Добавить товар
+              </span>
+            </ds-link>
+          </li>
         </ul>
         <ul class="navbar-nav flex-row">
           <li class="nav-item col-lg-auto me-5">
@@ -42,9 +49,10 @@ export class Header extends core.Component {
           </li>
           <li class="nav-item col-lg-auto">
               <ds-link classlink="" stylelink="text-decoration: none" to="${appRoutes.basket}">
-                  <span >
-                    <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card' alt="D" width="40" height="50"> 
-                  </span>
+                <button type="button" class="btn btn-warning-gradient position-relative rounded-pill">
+                  <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card' alt="D" width="40" height="50"> 
+
+                </button>
               </ds-link>
           </li> 
         </ul>
@@ -57,3 +65,7 @@ export class Header extends core.Component {
 }
 
 customElements.define("ds-header", Header);
+
+{
+  /* <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span> */
+}

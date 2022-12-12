@@ -1,122 +1,72 @@
 import { Component } from "../../../core";
 import "./Catalog.scss";
+import { paginator } from "../../../utils";
+import { addItemService } from "../../../services";
+import { productCharacteristics } from "../../../constants";
 
 export class Catalog extends Component {
-  paginator() {
-    const paginationNumbers = document.getElementById("pagination-numbers");
-    const paginatedList = document.getElementById("paginated-list");
-    const listItems = paginatedList.querySelectorAll("item-card");
-    const nextButton = document.getElementById("next-button");
-    const prevButton = document.getElementById("prev-button");
-
-    const paginationLimit = 12;
-    const pageCount = Math.ceil(listItems.length / paginationLimit);
-    let currentPage = 1;
-
-    const disableButton = (button) => {
-      button.classList.add("disabled");
-      button.setAttribute("disabled", true);
+  constructor() {
+    super();
+    this.state = {
+      items: [],
+      isLoading: false,
     };
-
-    const enableButton = (button) => {
-      button.classList.remove("disabled");
-      button.removeAttribute("disabled");
-    };
-
-    const handlePageButtonsStatus = () => {
-      if (currentPage === 1) {
-        disableButton(prevButton);
-      } else {
-        enableButton(prevButton);
-      }
-
-      if (pageCount === currentPage) {
-        disableButton(nextButton);
-      } else {
-        enableButton(nextButton);
-      }
-    };
-
-    const handleActivePageNumber = () => {
-      document.querySelectorAll(".pagination-number").forEach((button) => {
-        button.classList.remove("active");
-        const pageIndex = Number(button.getAttribute("page-index"));
-        if (pageIndex == currentPage) {
-          button.classList.add("active");
-        }
-      });
-    };
-
-    const appendPageNumber = (index) => {
-      const pageNumber = document.createElement("button");
-      pageNumber.className = "pagination-number";
-      pageNumber.innerHTML = index;
-      pageNumber.setAttribute("page-index", index);
-      pageNumber.setAttribute("aria-label", "Page " + index);
-
-      paginationNumbers.appendChild(pageNumber);
-    };
-
-    const getPaginationNumbers = () => {
-      for (let i = 1; i <= pageCount; i++) {
-        appendPageNumber(i);
-      }
-    };
-
-    const setCurrentPage = (pageNum) => {
-      currentPage = pageNum;
-
-      handleActivePageNumber();
-      handlePageButtonsStatus();
-
-      const prevRange = (pageNum - 1) * paginationLimit;
-      const currRange = pageNum * paginationLimit;
-
-      listItems.forEach((item, index) => {
-        item.classList.add("hidden");
-        if (index >= prevRange && index < currRange) {
-          item.classList.remove("hidden");
-        }
-      });
-    };
-
-    window.addEventListener("load", () => {
-      getPaginationNumbers();
-      setCurrentPage(1);
-
-      prevButton.addEventListener("click", () => {
-        setCurrentPage(currentPage - 1);
-      });
-
-      nextButton.addEventListener("click", () => {
-        setCurrentPage(currentPage + 1);
-      });
-
-      document.querySelectorAll(".pagination-number").forEach((button) => {
-        const pageIndex = Number(button.getAttribute("page-index"));
-
-        if (pageIndex) {
-          button.addEventListener("click", () => {
-            setCurrentPage(pageIndex);
-          });
-        }
-      });
-    });
   }
 
   componentDidMount() {
-    this.paginator();
+    this.getItems();
+    this.addEventListener("click", this.onClick);
   }
+
+  componentWillUnmount() {
+    this.removeEventListener("click", this.onClick);
+  }
+
+  getItems() {
+    addItemService.getItems().then((data) => {
+      this.setState((state) => {
+        return {
+          ...state,
+          items: data.map((item) => ({ ...item, isEditting: false })),
+        };
+      });
+    });
+    paginator();
+  }
+
+  deleteItem = (id) => {
+    addItemService.deleteItem(id).then(() => {
+      this.getItems();
+    });
+  };
+
+  onClick = (evt) => {
+    const target = evt.target;
+    if (target.closest(".delete-action")) {
+      const data = target.dataset;
+      this.deleteItem(data.id);
+    }
+  };
 
   render() {
     let arr = Array.from(Array(50).keys());
     return `
     <div class='container conte-center mt-5'>
       <div class="row" id="paginated-list" data-current-page="1" aria-live="polite">
-      ${arr
+      ${this.state.items
         .map(
           (item) => `
-          <item-card class=" col-3 mb-4" number='${item}'></item-card>
+          <item-card id="${item.id}" 
+          image="${item.image}"
+          itemtype="${item.itemtype}"
+          brand="${item.brand}" 
+          ${productCharacteristics
+            .map(
+              (title) => `
+          ${title.name}="${item[`${title.name}`]}"
+          `
+            )
+            .join(" ")} class=" col-3 mb-4" number='${item}'></item-card>
       `
         )
         .join(" ")} 

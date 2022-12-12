@@ -6,3 +6,4 @@ export * from "./Error";
 export * from "./CatalogPage";
 export * from "./InfoPage";
 export * from "./Basket";
+export * from "./AddItemPage";

@@ -9,6 +9,7 @@ export class App extends core.Component {
         <ds-router>
           <ds-header></ds-header>
               <main class="container-xl" >
+                <ds-route path="${appRoutes.addItem}" component="add-item-page" title="Добавить товар"></ds-route>
                 <ds-route path="${appRoutes.home}" component="home-page" title="Межкомнатные двери"></ds-route>
                 <ds-route path="${appRoutes.catalog}" component="catalog-page" title="Каталог"></ds-route>
                 <ds-route path="${appRoutes.info}" component="info-page" title="Оплата и доставка"></ds-route>

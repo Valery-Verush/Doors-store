@@ -4,6 +4,7 @@ export const appRoutes = {
   admin: "/admin",
   info: "/info",
   basket: "/basket",
+  addItem: "/addItem",
   signUp: "/signUp",
   signIn: "/signIn",
   errorPage: "*",
