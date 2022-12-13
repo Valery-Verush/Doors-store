@@ -1,14 +1,97 @@
 import * as core from "./core";
 import "./components";
 import { appRoutes } from "./constants/appRoutes";
+import { authService } from "./services";
 
 export class App extends core.Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoading: false,
+      isLogged: false,
+      error: "",
+    };
+  }
+
+  toggleIsLoading() {
+    this.setState((state) => {
+      return {
+        ...state,
+        isLoading: !state.isLoading,
+      };
+    });
+  }
+
+  getUser() {
+    this.toggleIsLoading();
+    authService
+      .init()
+      .then((user) => {
+        authService.user = user;
+        this.setState((state) => {
+          return {
+            ...state,
+            isLogged: Boolean(user),
+          };
+        });
+      })
+      .catch((error) => {
+        this.setState((state) => {
+          return {
+            ...state,
+            error: error.message,
+          };
+        });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
+  }
+
+  onSignOut = () => {
+    this.toggleIsLoading();
+    authService
+      .signOut()
+      .then(() => {
+        this.setState((state) => {
+          return {
+            ...state,
+            isLogged: false,
+          };
+        });
+      })
+      .catch((error) => {
+        this.setState((state) => {
+          return {
+            ...state,
+            error: error.message,
+          };
+        });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
+  };
+
+  componentDidMount() {
+    this.getUser();
+    this.addEventListener("sign-out", this.onSignOut);
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener("sign-out", this.onSignOut);
+  }
+
   render() {
-    return `
+    return this.state.isLoading
+      ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
+      : `
+    
       <div class='bg-light bg-gradient'>
         <ds-router>
-          <ds-header></ds-header>
+          <ds-header is-logged="${this.state.isLogged}"></ds-header>
               <main class="container-xl" >
+                <ds-route path="${appRoutes.signIn}" component="sign-in-page" title="Войти в систему"></ds-route>
                 <ds-route path="${appRoutes.addItem}" component="add-item-page" title="Добавить товар"></ds-route>
                 <ds-route path="${appRoutes.home}" component="home-page" title="Межкомнатные двери"></ds-route>
                 <ds-route path="${appRoutes.catalog}" component="catalog-page" title="Каталог"></ds-route>

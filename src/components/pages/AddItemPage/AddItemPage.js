@@ -1,6 +1,7 @@
 import { Component } from "../../../core";
 import { addItemService } from "../../../services/AddItemService";
-import { productCharacteristics } from "../../../constants";
+import { authService } from "../../../services/Auth";
+import { appRoutes } from "../../../constants/appRoutes";
 export class AddItemPage extends Component {
   constructor() {
     super();
@@ -33,6 +34,11 @@ export class AddItemPage extends Component {
   };
 
   componentDidMount() {
+    if (!authService.user) {
+      this.dispatch("change-route", {
+        target: appRoutes[this.props.path ?? "signUp"],
+      });
+    }
     this.addEventListener("save-item", this.saveItem);
     this.addEventListener("edit-item", this.updateItem);
     this.addEventListener("click", this.onClick);

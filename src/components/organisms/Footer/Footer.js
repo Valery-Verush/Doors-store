@@ -33,6 +33,11 @@ export class Footer extends Component {
                   Корзина
               </ds-link>
             </li>
+            <li class="mb-2 mt-2">
+              <ds-link  to="${appRoutes.signIn}">
+                  Войти в систему
+              </ds-link>
+            </li>
           </ul>
         </div>
         <div class="col-6 col-lg-2 mb-3 fs-5">
