@@ -2,6 +2,7 @@ import * as core from "./core";
 import "./components";
 import { appRoutes } from "./constants/appRoutes";
 import { authService } from "./services";
+import * as utils from "./utils";
 
 export class App extends core.Component {
   constructor() {
@@ -13,17 +14,8 @@ export class App extends core.Component {
     };
   }
 
-  toggleIsLoading() {
-    this.setState((state) => {
-      return {
-        ...state,
-        isLoading: !state.isLoading,
-      };
-    });
-  }
-
   getUser() {
-    this.toggleIsLoading();
+    utils.toggleIsLoading(this);
     authService
       .init()
       .then((user) => {
@@ -44,12 +36,12 @@ export class App extends core.Component {
         });
       })
       .finally(() => {
-        this.toggleIsLoading();
+        utils.toggleIsLoading(this);
       });
   }
 
   onSignOut = () => {
-    this.toggleIsLoading();
+    utils.toggleIsLoading(this);
     authService
       .signOut()
       .then(() => {
@@ -69,7 +61,7 @@ export class App extends core.Component {
         });
       })
       .finally(() => {
-        this.toggleIsLoading();
+        utils.toggleIsLoading(this);
       });
   };
 
@@ -97,6 +89,7 @@ export class App extends core.Component {
                 <ds-route path="${appRoutes.catalog}" component="catalog-page" title="Каталог"></ds-route>
                 <ds-route path="${appRoutes.info}" component="info-page" title="Оплата и доставка"></ds-route>
                 <ds-route path="${appRoutes.basket}" component="basket-page" title="Корзина"></ds-route>
+                <ds-route path="${appRoutes.productPage}/:id" component="product-page" title="id"></ds-route>
                 <ds-route path="${appRoutes.admin}" component="admin-page" title="Admin Page"></ds-route>
                 <ds-route path="${appRoutes.errorPage}" component="error-page" title="Not Found Page"></ds-route>
                 <ds-outlet></ds-outlet>

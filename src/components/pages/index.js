@@ -7,3 +7,4 @@ export * from "./CatalogPage";
 export * from "./InfoPage";
 export * from "./Basket";
 export * from "./AddItemPage";
+export * from "./ProductPage";

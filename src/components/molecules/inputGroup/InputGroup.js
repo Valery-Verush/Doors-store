@@ -30,7 +30,6 @@ export class InputGroup extends Component {
   }
 
   render() {
-    console.log(this.props.type);
     return `
     <form class='input-group row '>
       <div class="col-12 col-xl-8">
@@ -49,12 +48,10 @@ export class InputGroup extends Component {
           .join(" ")}
 
           <labelclass="form-label text-center">Изображение</label>
-          <input  
-            name="image"
-            type="text"   
-            class=" form-control" 
-            value="${this.props.image ?? ""}"
-          />
+            <input class="form-control" type="file" id="formFile" value="${
+              this.props.image ?? ""
+            }" name="image">
+          
           <labelclass="form-label text-center">Тип</label>
           <select name="itemtype" class="form-select" >
             <option value="Ekoveneer" ${

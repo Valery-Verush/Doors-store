@@ -1,7 +1,7 @@
-import { Database } from "./Database";
+import { databaseService } from "./Database";
 class AddItemService {
   constructor() {
-    this.database = Database.getInstance();
+    this.database = databaseService;
   }
   createItem(body) {
     return this.database.create("items", body);

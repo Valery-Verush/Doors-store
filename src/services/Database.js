@@ -7,8 +7,10 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
-export class Database {
+
+class Database {
   constructor() {
     this._database = getFirestore(cloudService.app);
   }
@@ -17,11 +19,17 @@ export class Database {
     const collectionRef = collection(this._database, collectionKey);
     return addDoc(collectionRef, body);
   }
+
   read(collectionKey) {
     const collectionRef = collection(this._database, collectionKey);
     return getDocs(collectionRef).then((documents) => {
       return documents.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     });
+  }
+
+  getDocument(collectionKey, id) {
+    const documentRef = doc(this._database, collectionKey, id);
+    return getDoc(documentRef).then((data) => data.data());
   }
 
   update(collectionKey, id, body) {
@@ -33,11 +41,6 @@ export class Database {
     const document = doc(this._database, collectionKey, id);
     return deleteDoc(document);
   }
-
-  static getInstance() {
-    if (!Database.instance) {
-      Database.instance = new Database();
-    }
-    return Database.instance;
-  }
 }
+
+export const databaseService = new Database();

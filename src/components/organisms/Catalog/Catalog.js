@@ -1,6 +1,6 @@
 import { Component } from "../../../core";
 import "./Catalog.scss";
-import { paginator } from "../../../utils";
+import * as utils from "../../../utils";
 import { addItemService } from "../../../services";
 import { productCharacteristics } from "../../../constants";
 
@@ -16,6 +16,7 @@ export class Catalog extends Component {
   componentDidMount() {
     this.getItems();
     this.addEventListener("click", this.onClick);
+    utils.paginator();
   }
 
   componentWillUnmount() {
@@ -23,15 +24,20 @@ export class Catalog extends Component {
   }
 
   getItems() {
-    addItemService.getItems().then((data) => {
-      this.setState((state) => {
-        return {
-          ...state,
-          items: data.map((item) => ({ ...item, isEditting: false })),
-        };
+    utils.toggleIsLoading(this);
+    addItemService
+      .getItems()
+      .then((data) => {
+        this.setState((state) => {
+          return {
+            ...state,
+            items: data.map((item) => ({ ...item, isEditting: false })),
+          };
+        });
+      })
+      .finally(() => {
+        utils.toggleIsLoading(this);
       });
-    });
-    paginator();
   }
 
   deleteItem = (id) => {
@@ -49,8 +55,9 @@ export class Catalog extends Component {
   };
 
   render() {
-    let arr = Array.from(Array(50).keys());
-    return `
+    return this.state.isLoading
+      ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
+      : `
     <div class='container conte-center mt-5'>
       <div class="row" id="paginated-list" data-current-page="1" aria-live="polite">
       ${this.state.items
@@ -66,7 +73,9 @@ export class Catalog extends Component {
           ${title.name}="${item[`${title.name}`]}"
           `
             )
-            .join(" ")} class=" col-3 mb-4" number='${item}'></item-card>
+            .join(
+              " "
+            )} class="col-12 col-xl-3 mb-4" number='${item}'></item-card>
       `
         )
         .join(" ")} 
