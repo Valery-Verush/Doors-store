@@ -43,7 +43,9 @@ export class ProductPage extends Component {
   //     return [...productCharacteristics.map((item) => item.name), "id"];
   //   }
   render() {
-    return `
+    return this.state.isLoading
+      ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
+      : `
         <div class=" bg-white bg-gradient shadow-sm pt-4" >
           <div class="row">
             <div class='col-8 p-4 container text-center'>

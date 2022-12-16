@@ -25,7 +25,7 @@ export class Header extends core.Component {
   render() {
     return `
   <header class="sticky-top ">
-    <nav class="navbar navbar-expand-lg bg-warning bg-gradient shadow-sm  mb-1">
+    <nav class="navbar navbar-expand-lg bg-warning bg-gradient shadow-sm  ">
       <div class="container-xl">
         <ul class="navbar-nav nav flex-row ">
         <li class="nav-item col-lg-auto">

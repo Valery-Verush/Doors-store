@@ -82,15 +82,15 @@ export class App extends core.Component {
       <div class='bg-light bg-gradient'>
         <ds-router>
           <ds-header is-logged="${this.state.isLogged}"></ds-header>
-              <main class="container-xl" >
+              <main class="container-xl " >
                 <ds-route path="${appRoutes.signIn}" component="sign-in-page" title="Войти в систему"></ds-route>
                 <ds-route path="${appRoutes.addItem}" component="add-item-page" title="Добавить товар"></ds-route>
                 <ds-route path="${appRoutes.home}" component="home-page" title="Межкомнатные двери"></ds-route>
-                <ds-route path="${appRoutes.catalog}" component="catalog-page" title="Каталог"></ds-route>
+                <ds-route path="${appRoutes.catalog}" is-logged="${this.state.isLogged}" component="catalog-page" title="Каталог"></ds-route>
                 <ds-route path="${appRoutes.info}" component="info-page" title="Оплата и доставка"></ds-route>
                 <ds-route path="${appRoutes.basket}" component="basket-page" title="Корзина"></ds-route>
                 <ds-route path="${appRoutes.productPage}/:id" component="product-page" title="id"></ds-route>
-                <ds-route path="${appRoutes.admin}" component="admin-page" title="Admin Page"></ds-route>
+                <ds-route path="${appRoutes.admin}" is-logged="${this.state.isLogged}" component="admin-page" title="Admin Page"></ds-route>
                 <ds-route path="${appRoutes.errorPage}" component="error-page" title="Not Found Page"></ds-route>
                 <ds-outlet></ds-outlet>
               </main>
