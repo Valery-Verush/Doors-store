@@ -11,7 +11,7 @@ export class ItemCard extends Component {
     return `
         <div class="card shadow-sm pt-4" >
           <div class='container image-door-catalog text-center'>
-          <ds-link classlink="" stylelink="text-decoration: none"  to="${appRoutes.productPage}/${this.props.id}">
+          <ds-link   to="${appRoutes.productPage}/${this.props.id}">
            <img src="${this.props.image}" class="card-img-top "  alt="...">
            </ds-link >
           </div>

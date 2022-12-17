@@ -1,4 +1,4 @@
-import { Component } from "../../../core";
+import { Component, eventBus } from "../../../core";
 import "../../molecules";
 import "../../atoms";
 import { initialFieldsState } from "./initialState";
@@ -6,6 +6,7 @@ import { FormManager } from "../../../core/FormManager/FormManager";
 import { Validator } from "../../../core/FormManager/Validator";
 import { authService } from "../../../services/Auth";
 import { appRoutes } from "../../../constants/appRoutes";
+import { appEvents } from "../../../constants";
 
 export class SignInPage extends Component {
   constructor() {
@@ -36,7 +37,8 @@ export class SignInPage extends Component {
       .signIn(data.email, data.password)
       .then((user) => {
         authService.user = user;
-        this.dispatch("change-route", { target: appRoutes.addItem });
+        eventBus.emit(appEvents.changeRoute, { target: appRoutes.home });
+        eventBus.emit(appEvents.userAuthorized);
       })
       .catch((error) => {
         this.setState((state) => {

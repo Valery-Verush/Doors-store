@@ -1,5 +1,7 @@
+import { appEvents } from "../../../constants";
 import { appRoutes } from "../../../constants/appRoutes";
 import * as core from "../../../core";
+import { eventBus } from "../../../core";
 import "./header.scss";
 
 export class Header extends core.Component {
@@ -10,7 +12,7 @@ export class Header extends core.Component {
   onSignOut = (evt) => {
     evt.preventDefault();
     if (evt.target.closest(".sign-out-link")) {
-      this.dispatch("sign-out");
+      eventBus.emit(appEvents.userLoggedOut);
     }
   };
 

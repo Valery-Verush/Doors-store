@@ -14,9 +14,10 @@ export class Catalog extends Component {
   }
 
   componentDidMount() {
+    console.log(document.getElementById("paginated-list"));
+    utils.paginator();
     this.getItems();
     this.addEventListener("click", this.onClick);
-    utils.paginator();
   }
 
   componentWillUnmount() {
@@ -66,7 +67,6 @@ export class Catalog extends Component {
           <item-card id="${item.id}" 
           image="${item.image}"
           itemtype="${item.itemtype}"
-          brand="${item.brand}" 
           ${productCharacteristics
             .map(
               (title) => `

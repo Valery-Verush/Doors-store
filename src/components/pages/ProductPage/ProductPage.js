@@ -36,12 +36,9 @@ export class ProductPage extends Component {
   }
 
   componentDidMount() {
-    console.log("ad");
     this.getProduct();
   }
-  //   static get observedAttributes() {
-  //     return [...productCharacteristics.map((item) => item.name), "id"];
-  //   }
+
   render() {
     return this.state.isLoading
       ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`

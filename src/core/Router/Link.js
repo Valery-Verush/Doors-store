@@ -1,4 +1,6 @@
+import { appEvents } from "../../constants/appEvents";
 import { Component } from "../Component";
+import { eventBus } from "../EventBus";
 
 export class Link extends Component {
   constructor() {
@@ -7,12 +9,12 @@ export class Link extends Component {
   }
 
   static get observedAttributes() {
-    return ["to", "classlink", "stylelink"];
+    return ["to"];
   }
 
   onClick = (evt) => {
     evt.preventDefault();
-    this.dispatch("change-route", { target: this.props.to });
+    eventBus.emit(appEvents.changeRoute, { target: this.props.to });
   };
 
   componentDidMount() {
@@ -25,10 +27,15 @@ export class Link extends Component {
 
   render() {
     return `
-            <a class="${this.props.classlink}" style="${this.props.stylelink}" href="${this.props.to}">
-                <slot></slot>
-            </a>
-        `;
+    <style>
+      .ds-link {
+        text-decoration: none;
+      }
+    </style>
+      <a href="${this.props.to}" class="ds-link">
+          <slot></slot>
+      </a>
+    `;
   }
 }
 

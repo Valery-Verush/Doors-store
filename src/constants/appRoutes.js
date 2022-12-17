@@ -7,6 +7,6 @@ export const appRoutes = {
   addItem: "/addItem",
   signUp: "/signUp",
   signIn: "/signIn",
-  productPage: "./productPage",
+  productPage: "/productPage",
   errorPage: "*",
 };
