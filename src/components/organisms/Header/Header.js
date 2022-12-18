@@ -2,9 +2,16 @@ import { appEvents } from "../../../constants";
 import { appRoutes } from "../../../constants/appRoutes";
 import * as core from "../../../core";
 import { eventBus } from "../../../core";
+import localStorageService from "../../../services/LocalStorage";
 import "./header.scss";
 
 export class Header extends core.Component {
+  constructor() {
+    super();
+    this.state = {
+      cartQuantity: 0,
+    };
+  }
   static get observedAttributes() {
     return ["is-logged"];
   }
@@ -16,11 +23,26 @@ export class Header extends core.Component {
     }
   };
 
+  getCartQuantity = () => {
+    const data = localStorageService.getItem("cart-data");
+    if (data?.length >= 0) {
+      this.setState((state) => {
+        return {
+          ...state,
+          cartQuantity: data.length,
+        };
+      });
+    }
+  };
+
   componentDidMount() {
+    this.getCartQuantity();
+    eventBus.on(appEvents.changeCart, this.getCartQuantity);
     this.addEventListener("click", this.onSignOut);
   }
 
   componentWillUnmount() {
+    eventBus.off(appEvents.changeCart, this.getCartQuantity);
     this.removeEventListener("click", this.onSignOut);
   }
 
@@ -28,7 +50,7 @@ export class Header extends core.Component {
     return `
   <header class="sticky-top ">
     <nav class="navbar navbar-expand-lg bg-warning bg-gradient shadow-sm  ">
-      <div class="container-xl">
+      <div class="container">
         <ul class="navbar-nav nav flex-row ">
         <li class="nav-item col-lg-auto">
           <ds-link classlink="" stylelink="text-decoration: none"  to="${
@@ -88,7 +110,7 @@ export class Header extends core.Component {
         </ul>
         <ul class="navbar-nav flex-row">
           <li class="nav-item col-lg-auto me-5">
-            <a class="nav-link text-light  fs-5 ms-1 " href="tel: +375296270513">+375 (29) 627-05-13</a>
+            <a class="nav-link text-light  fs-5 ms-1 mt-1 " href="tel: +375296270513">+375 (29) 627-05-13</a>
           </li>
           <li class="nav-item col-lg-auto">
               <ds-link classlink="" stylelink="text-decoration: none" to="${
@@ -96,7 +118,9 @@ export class Header extends core.Component {
               }">
                 <button type="button" class="btn btn-warning-gradient position-relative rounded-pill">
                   <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card' alt="D" width="40" height="50"> 
-
+                  <span class="position-absolute mt-2 top-0 start-100 translate-middle badge rounded-pill bg-danger bg-gradient">${
+                    this.state.cartQuantity
+                  }</span>
                 </button>
               </ds-link>
           </li> 

@@ -22,7 +22,6 @@ export class ProductPage extends Component {
     databaseService
       .getDocument("items", this.props.id)
       .then((data) => {
-        console.log(data);
         this.setState((state) => {
           return {
             ...state,

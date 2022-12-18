@@ -1,12 +1,30 @@
-import { Component } from "../../../core";
+import { Component, eventBus } from "../../../core";
 import "./ItemCard.scss";
-import { productCharacteristics } from "../../../constants";
+import { appEvents, productCharacteristics } from "../../../constants";
 import { appRoutes } from "../../../constants";
+import localStorageService from "../../../services/LocalStorage";
+import cartService from "../../../services/Cart";
 
 export class ItemCard extends Component {
   static get observedAttributes() {
     return [...productCharacteristics.map((item) => item.name), "id"];
   }
+
+  addItemToCart(evt) {
+    if (evt.target.closest("add-item-to-cart-button")) {
+      cartService.addItem(this.props.id);
+      eventBus.emit(appEvents.changeCart);
+    }
+  }
+
+  componentDidMount() {
+    this.addEventListener("click", this.addItemToCart);
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener("click", this.addItemToCart);
+  }
+
   render() {
     return `
         <div class="card shadow-sm pt-4" >
@@ -22,9 +40,8 @@ export class ItemCard extends Component {
               <ds-link class="col-8"   to="${appRoutes.productPage}/${this.props.id}">
                 <div   class="text-nowrap lh-lg  btn btn-outline-warning rounded-pill">Посмотреть товар</div>
               </ds-link >
-              <add-basket-button class=' col-4'></add-basket-button>
+              <add-item-to-cart-button class=' col-4'></add-item-to-cart-button>
             </div>
-          
         </div>
       </div>
             `;

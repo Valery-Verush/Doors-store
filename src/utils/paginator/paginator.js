@@ -1,7 +1,7 @@
 export const paginator = () => {
   const paginationNumbers = document.getElementById("pagination-numbers");
   const paginatedList = document.getElementById("paginated-list");
-  console.log(paginatedList);
+
   const listItems = paginatedList.querySelectorAll("item-card");
   const nextButton = document.getElementById("next-button");
   const prevButton = document.getElementById("prev-button");

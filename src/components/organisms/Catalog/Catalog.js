@@ -99,6 +99,7 @@ export class Catalog extends Component {
         </div>
       </div>
     </div>
+    
         `;
   }
 }

@@ -5,6 +5,6 @@ export * from "./SignUp";
 export * from "./Error";
 export * from "./CatalogPage";
 export * from "./InfoPage";
-export * from "./Basket";
+export * from "./CartPage";
 export * from "./AddItemPage";
 export * from "./ProductPage";

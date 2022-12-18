@@ -4,4 +4,5 @@ export const appEvents = {
   userAuthorized: "user-authorized",
   userLoggedOut: "user-logged-out",
   changeRoute: "change-route",
+  changeCart: "change-cart",
 };
