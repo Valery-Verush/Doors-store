@@ -31,7 +31,7 @@ export class BassketPage extends Component {
     return this.state.isLoading
       ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
       : `
-    <h2 class='fs-2 fw-bold text-center p-5'>Корзина</h2>
+    <h2 class='fs-2 fw-bold text-center p-3'>Корзина</h2>
     ${
       this.state.cartItems?.[0]
         ? `

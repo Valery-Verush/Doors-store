@@ -36,7 +36,7 @@ export class ItemCard extends Component {
         <div class="card-body mb-0">
           <h5 class="card-title fs-4 p-2 fw-light">${this.props.series} <br>${this.props.color}</h5>
           <div class="border-bottom border-top p-2 fs-3 fw-bold ">${this.props.price} Br</div>
-            <div class='row p-3 fs-3 fw-bold' >
+            <div class='row p-3 fs-3 align-items-center fw-bold' >
               <ds-link class="col-8"   to="${appRoutes.productPage}/${this.props.id}">
                 <div   class="text-nowrap lh-lg  btn btn-outline-warning rounded-pill">Посмотреть товар</div>
               </ds-link >

@@ -9,7 +9,7 @@ export class PrivateRoute extends Component {
   }
 
   componentDidMount() {
-    console.log(authService.user, this.props.path === window.location.pathname);
+    // console.log(authService.user, this.props.path === window.location.pathname);
     if (!authService.user && this.props.path === window.location.pathname) {
       eventBus.emit(appEvents.changeRoute, {
         target: appRoutes.signIn,

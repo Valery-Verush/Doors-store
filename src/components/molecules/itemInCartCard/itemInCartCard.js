@@ -50,7 +50,7 @@ export class ItemInCartCard extends Component {
     return this.state.isLoading
       ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
       : `
-    <div class="container bg-white mx-0 my-2 m-xl-4 pt-3 pb-3 shadow-sm row text-center align-items-center rounded">
+    <div class="container bg-white mx-0 my-2 my-xl-4 pt-3 pb-3 shadow-sm row text-center align-items-center rounded">
       <div class="col-4 col-xl-4">
         <ds-link   to="${appRoutes.productPage}/${this.props.id}">
           <img class='item-in-cart-image' src='${item?.image}' />
