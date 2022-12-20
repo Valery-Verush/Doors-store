@@ -1,7 +1,7 @@
 import { Component, eventBus } from "../../../core";
 import "../../molecules";
 import "../../atoms";
-import { initialFieldsState } from "./initialState";
+import { initialFieldsState } from "../../../constants/initialState";
 import { FormManager } from "../../../core/FormManager/FormManager";
 import { Validator } from "../../../core/FormManager/Validator";
 import { authService } from "../../../services/Auth";
@@ -90,8 +90,12 @@ export class SignInPage extends Component {
 
     return `
       <ds-preloader is-loading="${this.state.isLoading}">
-        <form class="mt-5 registration-form">
-          <div class="invalid-feedback text-center mb-3 d-block">${this.state.error}</div>
+        <form class="container bg-white rounded-4 shadow-sm px-10 mt-5 row justify-content-center registration-form">
+          <div class="invalid-feedback  text-center mb-3 d-block">${this.state.error}</div>
+          <div class="col-4 align-items-center text-center">
+            <img src="../../../assets/images/icons/user-svgrepo-com.svg" class='shoping-card text-light' alt="D" width="180" >
+          </div>
+          <div class="col-6 ">
           <ds-input
             type="email"
             label="Email"
@@ -114,6 +118,7 @@ export class SignInPage extends Component {
           ></ds-input>
           <div class="d-grid gap-2 mt-5 col-md-6 mb-3 mx-auto">
           <button type="submit" class="btn btn-outline-warning  color-gradient ">Войти</button>
+          </div>
           </div>
         </form>
       </ds-preloader>

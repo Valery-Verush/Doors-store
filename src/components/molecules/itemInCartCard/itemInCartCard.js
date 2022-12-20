@@ -6,24 +6,7 @@ import cartService from "../../../services/Cart";
 import { appRoutes } from "../../../constants";
 export class ItemInCartCard extends Component {
   static get observedAttributes() {
-    return ["id", "quantity"];
-  }
-
-  getProduct() {
-    utils.toggleIsLoading(this);
-    databaseService
-      .getDocument("items", this.props.id)
-      .then((data) => {
-        this.setState((state) => {
-          return {
-            ...state,
-            item: data,
-          };
-        });
-      })
-      .finally(() => {
-        utils.toggleIsLoading(this);
-      });
+    return ["id", "quantity", "image", "brand", "color", "price"];
   }
 
   addItemToCart(evt) {
@@ -37,7 +20,6 @@ export class ItemInCartCard extends Component {
   }
 
   componentDidMount() {
-    this.getProduct();
     this.addEventListener("click", this.addItemToCart);
   }
   componentWillUnmount() {
@@ -45,11 +27,9 @@ export class ItemInCartCard extends Component {
   }
 
   render() {
-    const item = this.state.item;
+    const item = this.props;
 
-    return this.state.isLoading
-      ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
-      : `
+    return `
     <div class="container bg-white mx-0 my-2 my-xl-4 pt-3 pb-3 shadow-sm row text-center align-items-center rounded">
       <div class="col-4 col-xl-4">
         <ds-link   to="${appRoutes.productPage}/${this.props.id}">
@@ -60,9 +40,9 @@ export class ItemInCartCard extends Component {
         <div class="col-12 mb-3 mb-xl-0 col-xl">${item?.brand}<br> ${item?.color}</div>
         <div class="col-12 mb-3 mb-xl-0 col-xl">
           <div class="btn-group rounded-pill" >
-            <button type="button" class="btn btn-danger bg-gradient minus-quantity-item-in-cart "><img src="../../../assets/images/icons/placeholders/minus-svgrepo-com.svg" alt="-" width="20" height="20"></button>
+            <button type="button" class="btn btn-warning bg-gradient minus-quantity-item-in-cart "><img src="../../../assets/images/icons/placeholders/minus-svgrepo-com.svg" alt="-" width="20" height="20"></button>
             <button  class="basket-item-quanity text-bold fs-5" >${this.props.quantity}</button>
-            <button type="button" class="btn btn-success bg-gradient plus-quantity-item-in-cart "><img src="../../../assets/images/icons/placeholders/plus-svgrepo-com.svg" alt="+" width="20" height="20"></button>
+            <button type="button" class="btn btn-warning bg-gradient plus-quantity-item-in-cart "><img src="../../../assets/images/icons/placeholders/plus-svgrepo-com.svg" alt="+" width="20" height="20"></button>
           </div>
         </div>
         <div class="col-12 col-xl text-bold fs-3">${item?.price} Br</div>

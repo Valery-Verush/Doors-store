@@ -125,8 +125,8 @@ export class Header extends core.Component {
           mediaQuery.matches
             ? `
           <ds-link  to="${appRoutes.basket}">
-            <button type="button" class="btn btn-warning-gradient position-relative rounded-pill">
-              <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card' alt="D" width="40" height="50"> 
+            <button type="button" class="btn  btn-warning-gradient position-relative rounded-pill">
+              <img src="../../../assets/images/icons/logo/shopping-cart-svgrepo-com.svg" class='shoping-card text-light' alt="D" width="40" height="50"> 
               <span class="position-absolute mt-2 top-0 start-100 translate-middle badge rounded-pill bg-danger bg-gradient">${this.state.cartQuantity}</span>
             </button>
           </ds-link>`
