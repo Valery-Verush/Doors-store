@@ -8,7 +8,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devServer: {
     historyApiFallback: true,
     static: "./",
-    port: 3000,
+    port: 3001,
     client: {
       overlay: {
         errors: true,
