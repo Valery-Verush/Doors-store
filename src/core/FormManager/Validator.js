@@ -12,8 +12,20 @@ export class Validator {
     };
   }
 
+  static phone(message) {
+    return (value) => {
+      const regExp = /^[\d\+][\d\(\)\ -]{4,14}\d$/;
+      if (!regExp.test(value)) {
+        return {
+          message,
+        };
+      }
+
+      return {};
+    };
+  }
+
   static required(message) {
-    console.log("asd");
     return (value) => {
       if (value === "" || value === null || value === undefined) {
         return {

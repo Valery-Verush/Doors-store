@@ -32,6 +32,8 @@ export class Input extends Component {
     }"
                 name="${this.props["control-name"]}"
                 value="${this.props.value}"
+                required="required"
+                
             />
             <div class="invalid-feedback">${this.props["error-message"]}</div>
             </div>

@@ -19,3 +19,24 @@
 path:hover {
   fill: #000;
 }
+
+.card-item-menu {
+  margin: 15px;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.item-link {
+  flex-grow: unset;
+  width: 130%;
+  height: 50px;
+  margin: 0;
+  padding: 10px 0 0;
+}
+.add-item-to-cart-button {
+  width: 50px;
+  margin: 0;
+  padding: 0;
+}

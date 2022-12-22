@@ -6,6 +6,8 @@ import * as utils from "../../../utils";
 import { FormManager } from "../../../core/FormManager/FormManager";
 import { Validator } from "../../../core/FormManager/Validator";
 import { initialFieldsState } from "../../../constants/initialState";
+import { addOrderService } from "../../../services/AddOrderService";
+import cartService from "../../../services/Cart";
 
 export class BassketPage extends Component {
   constructor() {
@@ -14,6 +16,7 @@ export class BassketPage extends Component {
       cartItems: [],
       error: "",
       isLoading: false,
+      orderIsComplete: false,
       fields: {
         ...initialFieldsState,
       },
@@ -25,11 +28,14 @@ export class BassketPage extends Component {
     if (evt.target.closest("ds-input")) {
       this.form.init(this.querySelector(".registration-form"), {
         email: [
-          Validator.email("Email is not valid"),
-          Validator.required("The field should not be empty"),
+          Validator.email("Введён не валидный адрес почты"),
+          Validator.required("Заполните это поле"),
         ],
-        phone: [Validator.required("The field should not be empty")],
-        name: [Validator.required("The field should not be empty")],
+        phone: [
+          Validator.required("Заполните это поле"),
+          Validator.phone("Введён не валидный номер телефона"),
+        ],
+        name: [Validator.required("Заполните это поле")],
       });
     }
   };
@@ -47,27 +53,66 @@ export class BassketPage extends Component {
   };
 
   getProduct = () => {
+    if (localStorageService.getItem("cart-data")) {
+      utils.toggleIsLoading(this);
+      databaseService
+        .read("items")
+        .then((data) => {
+          this.setState((state) => {
+            return {
+              ...state,
+              cartItems: localStorageService
+                .getItem("cart-data")
+                .map((item) => {
+                  return {
+                    ...item,
+                    ...data.find((smth) => smth.id === item.id),
+                  };
+                }),
+            };
+          });
+        })
+        .then(() => {
+          this.setState((state) => {
+            return {
+              ...state,
+              calculateQuantity: this.state.cartItems.reduce(
+                (acum, item) => acum + item.quantity,
+                0
+              ),
+              calculateCost: this.state.cartItems.reduce(
+                (acum, item) => acum + item.price * item.quantity,
+                0
+              ),
+            };
+          });
+        })
+        .finally(() => {
+          utils.toggleIsLoading(this);
+        });
+    }
+  };
+
+  makeAnOrder = (data) => {
     utils.toggleIsLoading(this);
-    databaseService
-      .read("items")
-      .then((data) => {
+    addOrderService
+      .createOrder({ ...data, order: localStorageService.getItem("cart-data") })
+      .then(
         this.setState((state) => {
           return {
             ...state,
-            cartItems: localStorageService.getItem("cart-data").map((item) => {
-              return { ...item, ...data.find((smth) => smth.id === item.id) };
-            }),
+            orderIsComplete: true,
           };
-        });
+        })
+      )
+      .then(() => {
+        cartService.clear();
       })
       .finally(() => {
         utils.toggleIsLoading(this);
       });
   };
 
-  makeAnOrder(data) {
-    console.log(data);
-  }
   componentDidMount() {
     this.getProduct();
     eventBus.on(appEvents.changeCart, this.getProduct);
@@ -83,7 +128,9 @@ export class BassketPage extends Component {
     const {
       fields: { email, phone, name },
     } = this.state;
-    return this.state.isLoading
+    return this.state.orderIsComplete
+      ? `<h2 class='fs-2 fw-bold text-center p-3'>Заказ сделан</h2>`
+      : this.state.isLoading
       ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
       : `
     <h2 class='fs-2 fw-bold text-center p-3'>Корзина</h2>
@@ -105,13 +152,9 @@ export class BassketPage extends Component {
           })
           .join(" ")}
     
-          <div class=' fw-bold fs-4 m-3 text-end'>Итого: ${this.state.cartItems.reduce(
-            (acum, item) => acum + item.price * item.quantity,
-            0
-          )}Br (${this.state.cartItems.reduce(
-            (acum, item) => acum + item.quantity,
-            0
-          )}шт.)</div>
+          <div class=' fw-bold fs-4 m-3 text-end'>Итого: ${
+            this.state.calculateCost
+          }Br (${this.state.calculateQuantity}шт.)</div>
           <form class="mt-5 registration-form">
           <div class="invalid-feedback text-center mb-3 d-block">${
             this.state.error

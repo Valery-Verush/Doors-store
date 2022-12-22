@@ -79,7 +79,7 @@ export class SignInPage extends Component {
 
   componentDidMount() {
     this.addEventListener("click", this.validateForm);
-    this.addEventListener("validate-controls", this.validate);
+    eventBus.on(appEvents.validateControls, this.validate);
     this.addEventListener("submit", this.form.handleSubmit(this.signIn));
   }
 
@@ -98,7 +98,7 @@ export class SignInPage extends Component {
           <div class="col-6 ">
           <ds-input
             type="email"
-            label="Email"
+            label="Почта"
             control-name="email"
             value="${email.value}"
             is-valid="${email.isValid}"
@@ -108,7 +108,7 @@ export class SignInPage extends Component {
 
           <ds-input
             type="password" 
-            label="Password"
+            label="Пароль"
             control-name="password"
             class-name="first-pass"
             value="${password.value}"

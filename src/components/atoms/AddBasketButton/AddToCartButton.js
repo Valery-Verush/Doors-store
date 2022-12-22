@@ -4,7 +4,7 @@ export class AddItemToCartButton extends Component {
   render() {
     return `
     <div class='btn btn-outline-light rounded-pill add-item-to-cart' id="liveToastBtn" type="button">
-      <img  src="../../../assets/images/icons/add-to-cart-svgrepo-com.svg" alt='add basket'  width="100" ></img>
+      <img  src="../../../assets/images/icons/add-to-cart-svgrepo-com.svg" alt='add basket' ></img>
     </div>
     `;
   }

@@ -57,6 +57,10 @@ class CartService {
     });
     this.update(newData);
   }
+
+  clear() {
+    this.update([]);
+  }
 }
 
 const cartService = new CartService();

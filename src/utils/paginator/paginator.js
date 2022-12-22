@@ -1,12 +1,16 @@
-export const paginator = () => {
+export const paginator = (obj) => {
   const paginationNumbers = document.getElementById("pagination-numbers");
+  // console.log(paginationNumbers);
   const paginatedList = document.getElementById("paginated-list");
-
-  const listItems = paginatedList.querySelectorAll("item-card");
+  // console.log(paginatedList);
+  const listItems = paginatedList.querySelectorAll(".item-card");
+  // console.log(listItems);
   const nextButton = document.getElementById("next-button");
+  // console.log(nextButton);
   const prevButton = document.getElementById("prev-button");
+  // console.log(prevButton);
 
-  const paginationLimit = 9;
+  const paginationLimit = 8;
   const pageCount = Math.ceil(listItems.length / paginationLimit);
   let currentPage = 1;
 

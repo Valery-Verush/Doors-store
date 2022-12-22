@@ -11,7 +11,7 @@ export class ItemCard extends Component {
   }
 
   addItemToCart(evt) {
-    if (evt.target.closest("add-item-to-cart-button")) {
+    if (evt.target.closest(".add-item-to-cart-button")) {
       cartService.addItem(this.props.id);
       eventBus.emit(appEvents.changeCart);
     }
@@ -36,11 +36,13 @@ export class ItemCard extends Component {
         <div class="card-body mb-0">
           <h5 class="card-title fs-4 p-2 fw-light">${this.props.series} <br>${this.props.color}</h5>
           <div class="border-bottom border-top p-2 fs-3 fw-bold ">${this.props.price} Br</div>
-            <div class='row p-3 fs-3 align-items-center fw-bold' >
-              <ds-link class="col-8"   to="${appRoutes.productPage}/${this.props.id}">
-                <div   class="text-nowrap lh-lg  btn btn-outline-warning rounded-pill">Посмотреть товар</div>
+            <div class='card-item-menu ' >
+              <ds-link class=""   to="${appRoutes.productPage}/${this.props.id}">
+                <div   class="  btn btn-outline-warning rounded-pill item-link">Посмотреть товар</div>
               </ds-link >
-              <add-item-to-cart-button class=' col-4'></add-item-to-cart-button>
+              <div  class='btn btn-outline-light rounded-pill add-item-to-cart-button' id="liveToastBtn" type="button">
+                <img  src="../../../assets/images/icons/add-to-cart-svgrepo-com.svg" alt='add cart' ></img>
+              </div>
             </div>
         </div>
       </div>

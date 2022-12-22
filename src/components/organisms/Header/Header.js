@@ -109,6 +109,13 @@ export class Header extends core.Component {
                 </span>
               </ds-link>
             </li>
+            <li class="nav-item ">
+              <ds-link  to="${appRoutes.admin}">
+                <span class="nav-link text-light  fs-5 m-2">
+                  Заказы
+                </span>
+              </ds-link>
+            </li>
             <li class="nav-item">
               <ds-link class="sign-out-link" to="${appRoutes.home}">
                 <span class="link nav-link text-light  fs-5 m-2">
