@@ -92,10 +92,10 @@ export class SignInPage extends Component {
       <ds-preloader is-loading="${this.state.isLoading}">
         <form class="container bg-white rounded-4 shadow-sm px-10 mt-5 row justify-content-center registration-form">
           <div class="invalid-feedback  text-center mb-3 d-block">${this.state.error}</div>
-          <div class="col-4 align-items-center text-center">
+          <div class="col-12 col-xl-4 mb-4 align-items-center text-center">
             <img src="../../../assets/images/icons/user-svgrepo-com.svg" class='shoping-card text-light' alt="D" width="180" >
           </div>
-          <div class="col-6 ">
+          <div class="col-12 col-xl-6 ">
           <ds-input
             type="email"
             label="Почта"

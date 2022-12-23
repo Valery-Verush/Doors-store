@@ -1,7 +1,7 @@
-import { Component } from "../../../core";
+import { Component, eventBus } from "../../../core";
 import { addOrderService } from "../../../services/AddOrderService";
 import * as utils from "../../../utils";
-import { productCharacteristics } from "../../../constants";
+import { appEvents, productCharacteristics } from "../../../constants";
 import { databaseService } from "../../../services";
 
 export class AdminPage extends Component {
@@ -15,14 +15,14 @@ export class AdminPage extends Component {
 
   componentDidMount() {
     this.getOrders();
-    this.addEventListener("click", this.onClick);
+    eventBus.on(appEvents.changeOrderList, this.getOrders);
   }
 
   componentWillUnmount() {
-    this.removeEventListener("click", this.onClick);
+    eventBus.off(appEvents.changeOrderList, this.getOrders);
   }
 
-  getOrders() {
+  getOrders = () => {
     utils.toggleIsLoading(this);
     addOrderService
       .getOrder()
@@ -51,26 +51,14 @@ export class AdminPage extends Component {
       .finally(() => {
         utils.toggleIsLoading(this);
       });
-  }
-
-  deleteItem = (id) => {
-    addOrderService.deleteItem(id).then(() => {
-      this.getorders();
-    });
-  };
-
-  onClick = (evt) => {
-    const target = evt.target;
-    if (target.closest(".delete-action")) {
-      const data = target.dataset;
-      this.deleteItem(data.id);
-    }
   };
 
   render() {
     return this.state.isLoading
       ? `<ds-preloader is-loading="${this.state.isLoading}"></ds-preloader>`
-      : `
+      : `${
+          this.state.orderData?.[0]
+            ? `
     <div class='container conte-center mt-5'>
       <div class="row paginated-list" id="paginated-list" data-current-page="1" aria-live="polite">
       ${this.state.orderData
@@ -88,10 +76,11 @@ export class AdminPage extends Component {
         )
         .join(" ")} 
       </div>
-
-     
-    
-        `;
+      `
+            : `
+      <h2 class='fs-2 mt-5  text-center p-6 '>Заказов сейчас нет. </h2>
+      `
+        }`;
   }
 }
 
