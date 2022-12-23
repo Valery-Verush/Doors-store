@@ -66,7 +66,7 @@ export class orderCard extends Component {
                     <div class="col-4 border ">Производитель</div>
                     <div class="col-4 border ">Цвет</div>
                     <div class="col-2 border ">Цена</div>
-                    <div class="col-2 border fs-6 fs-xl-5">Количество</div>
+                    <div class="col-2 border fs-6 fs-xl-5">Кол-во</div>
                   </div>
                   ${this.state.orderItems
                     ?.map(

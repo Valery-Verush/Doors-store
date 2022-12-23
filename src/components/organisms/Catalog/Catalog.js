@@ -36,7 +36,6 @@ export class Catalog extends Component {
       })
       .finally(() => {
         utils.toggleIsLoading(this);
-        setTimeout(utils.paginator, 500);
       });
   }
 
@@ -78,7 +77,17 @@ export class Catalog extends Component {
         .join(" ")} 
       </div>
 
-      <div class="row">
+      
+    </div>
+    
+        `;
+  }
+}
+
+customElements.define("ds-catalog", Catalog);
+
+{
+  /* <div class="row">
         <div class="col align-self-center mt-5">
           <nav class="pagination-container ">
             <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
@@ -95,10 +104,6 @@ export class Catalog extends Component {
           </nav>
         </div>
       </div>
-    </div>
-    
-        `;
-  }
-}
 
-customElements.define("ds-catalog", Catalog);
+setTimeout(utils.paginator, 500); */
+}
